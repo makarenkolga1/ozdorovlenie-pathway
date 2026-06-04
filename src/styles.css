@@ -139,6 +139,8 @@
     text-decoration-color: oklch(0.78 0.06 150 / 0.5);
     text-underline-offset: 3px;
     transition: color .2s;
+    overflow-wrap: anywhere;
+    word-break: break-all;
   }
   .prose-wellness a:hover { color: var(--color-accent-foreground); }
   .prose-wellness strong { color: var(--color-primary); font-weight: 600; }
