@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { getWeek, weeks } from "@/data/content";
+import { getWeek, weeks, type Week } from "@/data/content";
 import { WeekIcon } from "@/components/WeekIcon";
 import { ArrowLeft, ArrowRight, BookOpen, Sparkles } from "lucide-react";
 
@@ -28,7 +28,7 @@ export const Route = createFileRoute("/theory/$id")({
 });
 
 function WeekPage() {
-  const week = Route.useLoaderData();
+  const week = Route.useLoaderData() as Week;
   const prev = weeks.find((w) => w.id === week.id - 1);
   const next = weeks.find((w) => w.id === week.id + 1);
 
