@@ -66,7 +66,7 @@ function WeekPage() {
       <div className="max-w-3xl mx-auto px-5 sm:px-8 grid lg:grid-cols-[1fr_220px] lg:gap-10">
         {/* TOC */}
         {week.sections.length > 1 && (
-          <aside className="lg:order-2 lg:sticky lg:top-24 lg:self-start mb-8 lg:mb-0">
+          <aside className="lg:order-2 lg:sticky lg:top-24 lg:self-start mb-8 lg:mb-0 min-w-0">
             <div className="rounded-2xl border border-border bg-card/70 backdrop-blur p-5">
               <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-muted-foreground mb-3">
                 <BookOpen className="h-3.5 w-3.5" /> Содержание
@@ -74,7 +74,7 @@ function WeekPage() {
               <ol className="space-y-2 text-sm">
                 {week.sections.map((s, i) => (
                   <li key={s.id}>
-                    <a href={`#${s.id}`} className="text-foreground/80 hover:text-primary line-clamp-2 block">
+                    <a href={`#${s.id}`} className="text-foreground/80 hover:text-primary line-clamp-2 block break-words">
                       <span className="text-primary mr-1">{i + 1}.</span> {s.title}
                     </a>
                   </li>
@@ -84,12 +84,16 @@ function WeekPage() {
           </aside>
         )}
 
-        <div className="lg:order-1 prose-wellness max-w-none">
+        <div className="lg:order-1 prose-wellness max-w-none min-w-0">
           {week.sections.map((s, i) => (
-            <section key={s.id} id={s.id} className="scroll-mt-24">
-              <h2 className="!mt-12 flex items-baseline gap-3">
+            <section
+              key={s.id}
+              id={s.id}
+              className="scroll-mt-24 mt-10 first:mt-4 pt-8 first:pt-0 border-t first:border-t-0 border-border/60"
+            >
+              <h2 className="!mt-0 flex items-baseline gap-3 flex-wrap">
                 <span className="text-accent-foreground/70 font-display text-base">{String(i + 1).padStart(2, "0")}</span>
-                {s.title}
+                <span className="break-words">{s.title}</span>
               </h2>
               <div dangerouslySetInnerHTML={{ __html: s.html }} />
             </section>
