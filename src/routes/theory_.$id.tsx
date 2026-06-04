@@ -100,7 +100,7 @@ function WeekPage() {
       {/* Navigation between weeks */}
       <nav className="max-w-3xl mx-auto px-5 sm:px-8 mt-16 grid sm:grid-cols-2 gap-4">
         {prev ? (
-          <Link to="/theory/$id" params={{ id: String(prev.id) }} className="group rounded-2xl border border-border bg-card p-5 hover:shadow-md transition">
+          <Link to="/theory_/$id" params={{ id: String(prev.id) }} className="group rounded-2xl border border-border bg-card p-5 hover:shadow-md transition">
             <div className="text-xs uppercase tracking-widest text-muted-foreground flex items-center gap-2">
               <ArrowLeft className="h-3.5 w-3.5" /> Предыдущая
             </div>
@@ -108,7 +108,7 @@ function WeekPage() {
           </Link>
         ) : <span />}
         {next ? (
-          <Link to="/theory/$id" params={{ id: String(next.id) }} className="group rounded-2xl border border-border bg-card p-5 hover:shadow-md transition sm:text-right">
+          <Link to="/theory_/$id" params={{ id: String(next.id) }} className="group rounded-2xl border border-border bg-card p-5 hover:shadow-md transition sm:text-right">
             <div className="text-xs uppercase tracking-widest text-muted-foreground flex items-center gap-2 sm:justify-end">
               Следующая <ArrowRight className="h-3.5 w-3.5" />
             </div>
