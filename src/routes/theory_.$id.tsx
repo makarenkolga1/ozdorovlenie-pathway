@@ -3,7 +3,7 @@ import { getWeek, weeks, type Week } from "@/data/content";
 import { WeekIcon } from "@/components/WeekIcon";
 import { ArrowLeft, ArrowRight, BookOpen, Sparkles } from "lucide-react";
 
-export const Route = createFileRoute("/theory/$id")({
+export const Route = createFileRoute("/theory_/$id")({
   loader: ({ params }) => {
     const week = getWeek(Number(params.id));
     if (!week) throw notFound();

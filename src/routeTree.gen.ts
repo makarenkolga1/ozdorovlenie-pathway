@@ -13,7 +13,7 @@ import { Route as TheoryRouteImport } from './routes/theory'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as ExercisesRouteImport } from './routes/exercises'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as TheoryIdRouteImport } from './routes/theory.$id'
+import { Route as TheoryIdRouteImport } from './routes/theory_.$id'
 
 const TheoryRoute = TheoryRouteImport.update({
   id: '/theory',
@@ -36,23 +36,23 @@ const IndexRoute = IndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const TheoryIdRoute = TheoryIdRouteImport.update({
-  id: '/$id',
-  path: '/$id',
-  getParentRoute: () => TheoryRoute,
+  id: '/theory_/$id',
+  path: '/theory/$id',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/exercises': typeof ExercisesRoute
   '/search': typeof SearchRoute
-  '/theory': typeof TheoryRouteWithChildren
+  '/theory': typeof TheoryRoute
   '/theory/$id': typeof TheoryIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/exercises': typeof ExercisesRoute
   '/search': typeof SearchRoute
-  '/theory': typeof TheoryRouteWithChildren
+  '/theory': typeof TheoryRoute
   '/theory/$id': typeof TheoryIdRoute
 }
 export interface FileRoutesById {
@@ -60,22 +60,23 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/exercises': typeof ExercisesRoute
   '/search': typeof SearchRoute
-  '/theory': typeof TheoryRouteWithChildren
-  '/theory/$id': typeof TheoryIdRoute
+  '/theory': typeof TheoryRoute
+  '/theory_/$id': typeof TheoryIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths: '/' | '/exercises' | '/search' | '/theory' | '/theory/$id'
   fileRoutesByTo: FileRoutesByTo
   to: '/' | '/exercises' | '/search' | '/theory' | '/theory/$id'
-  id: '__root__' | '/' | '/exercises' | '/search' | '/theory' | '/theory/$id'
+  id: '__root__' | '/' | '/exercises' | '/search' | '/theory' | '/theory_/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ExercisesRoute: typeof ExercisesRoute
   SearchRoute: typeof SearchRoute
-  TheoryRoute: typeof TheoryRouteWithChildren
+  TheoryRoute: typeof TheoryRoute
+  TheoryIdRoute: typeof TheoryIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -108,33 +109,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/theory/$id': {
-      id: '/theory/$id'
-      path: '/$id'
+    '/theory_/$id': {
+      id: '/theory_/$id'
+      path: '/theory/$id'
       fullPath: '/theory/$id'
       preLoaderRoute: typeof TheoryIdRouteImport
-      parentRoute: typeof TheoryRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
-
-interface TheoryRouteChildren {
-  TheoryIdRoute: typeof TheoryIdRoute
-}
-
-const TheoryRouteChildren: TheoryRouteChildren = {
-  TheoryIdRoute: TheoryIdRoute,
-}
-
-const TheoryRouteWithChildren =
-  TheoryRoute._addFileChildren(TheoryRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ExercisesRoute: ExercisesRoute,
   SearchRoute: SearchRoute,
-  TheoryRoute: TheoryRouteWithChildren,
+  TheoryRoute: TheoryRoute,
+  TheoryIdRoute: TheoryIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
