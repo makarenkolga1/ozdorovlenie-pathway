@@ -89,18 +89,28 @@
 
 @layer components {
   .prose-wellness {
-    font-size: 1.0625rem;
-    line-height: 1.8;
+    font-size: 1rem;
+    line-height: 1.75;
     color: var(--color-foreground);
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    hyphens: auto;
+  }
+  @media (min-width: 640px) {
+    .prose-wellness { font-size: 1.0625rem; line-height: 1.8; }
   }
   .prose-wellness p { margin: 1em 0; }
   .prose-wellness h1, .prose-wellness h2 {
     font-family: var(--font-display);
-    font-size: 1.75rem;
-    margin-top: 2.2em;
+    font-size: 1.5rem;
+    margin-top: 1.8em;
     margin-bottom: 0.6em;
     color: var(--color-primary);
     letter-spacing: -0.02em;
+    line-height: 1.25;
+  }
+  @media (min-width: 640px) {
+    .prose-wellness h1, .prose-wellness h2 { font-size: 1.75rem; }
   }
   .prose-wellness h3 {
     font-family: var(--font-display);
@@ -136,6 +146,8 @@
     text-decoration-color: oklch(0.78 0.06 150 / 0.5);
     text-underline-offset: 3px;
     transition: color .2s;
+    overflow-wrap: anywhere;
+    word-break: break-all;
   }
   .prose-wellness a:hover { color: var(--color-accent-foreground); }
   .prose-wellness strong { color: var(--color-primary); font-weight: 600; }
