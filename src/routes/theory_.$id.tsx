@@ -63,7 +63,7 @@ function WeekPage() {
         </div>
       </header>
 
-      <div className="max-w-3xl mx-auto px-5 sm:px-8 grid lg:grid-cols-[1fr_220px] lg:gap-10">
+      <div className="max-w-5xl mx-auto px-5 sm:px-8 grid lg:grid-cols-[minmax(0,1fr)_220px] lg:gap-10">
         {/* TOC */}
         {week.sections.length > 1 && (
           <aside className="lg:order-2 lg:sticky lg:top-24 lg:self-start mb-8 lg:mb-0 min-w-0">
@@ -84,7 +84,7 @@ function WeekPage() {
           </aside>
         )}
 
-        <div className="lg:order-1 prose-wellness max-w-none min-w-0">
+        <div className="lg:order-1 prose-wellness max-w-3xl min-w-0">
           {week.sections.map((s, i) => (
             <section
               key={s.id}
