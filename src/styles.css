@@ -68,7 +68,10 @@
 
 @layer base {
   * { border-color: var(--color-border); }
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    overflow-x: clip;
+  }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
@@ -79,6 +82,7 @@
       radial-gradient(ellipse at top, oklch(0.96 0.04 120 / 0.5), transparent 50%),
       radial-gradient(ellipse at bottom right, oklch(0.93 0.05 60 / 0.35), transparent 55%);
     background-attachment: fixed;
+    overflow-x: clip;
   }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
