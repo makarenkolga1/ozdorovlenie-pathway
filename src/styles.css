@@ -92,6 +92,9 @@
     font-size: 1.0625rem;
     line-height: 1.8;
     color: var(--color-foreground);
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    hyphens: auto;
   }
   .prose-wellness p { margin: 1em 0; }
   .prose-wellness h1, .prose-wellness h2 {
