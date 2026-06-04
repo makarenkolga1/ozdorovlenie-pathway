@@ -51,7 +51,6 @@ function WeekPage() {
             <span className="text-xs uppercase tracking-widest text-primary">{week.tagline}</span>
           </div>
           <h1 className="mt-5 font-display text-4xl sm:text-5xl leading-tight">{week.title}</h1>
-          <p className="mt-5 text-lg text-muted-foreground leading-relaxed">{week.summary}</p>
 
           <div className="mt-8 rounded-2xl border border-accent/40 bg-gradient-to-br from-accent/10 to-primary/5 p-5 sm:p-6 flex items-start gap-4">
             <Sparkles className="h-5 w-5 text-accent-foreground shrink-0 mt-0.5" />
