@@ -99,6 +99,9 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  useEffect(() => {
+    installClientMonitoring();
+  }, []);
   return (
     <QueryClientProvider client={queryClient}>
       <div className="min-h-screen flex flex-col">
@@ -109,3 +112,4 @@ function RootComponent() {
     </QueryClientProvider>
   );
 }
+
