@@ -11,6 +11,8 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { installClientMonitoring } from "../lib/client-monitoring";
+
 import { SiteNav, SiteFooter } from "@/components/SiteNav";
 
 function NotFoundComponent() {
@@ -97,6 +99,9 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  useEffect(() => {
+    installClientMonitoring();
+  }, []);
   return (
     <QueryClientProvider client={queryClient}>
       <div className="min-h-screen flex flex-col">
@@ -107,3 +112,4 @@ function RootComponent() {
     </QueryClientProvider>
   );
 }
+
