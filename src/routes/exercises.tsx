@@ -16,6 +16,11 @@ export const Route = createFileRoute("/exercises")({
 });
 
 function ExercisesPage() {
+  const videosWithLinks = exercises.videos.flatMap((video) => {
+    const embedUrl = getYouTubeEmbedUrl(video.url);
+    return embedUrl ? [{ ...video, embedUrl }] : [];
+  });
+
   return (
     <div className="pb-16">
       <header className="relative overflow-hidden">
@@ -38,29 +43,49 @@ function ExercisesPage() {
         </div>
       </header>
 
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 grid lg:grid-cols-[1fr_280px] gap-10">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 space-y-10">
         <div className="prose-wellness max-w-none rounded-3xl bg-card border border-border p-6 sm:p-10 shadow-sm">
           <div dangerouslySetInnerHTML={{ __html: exercises.html }} />
         </div>
-        <aside className="lg:sticky lg:top-24 lg:self-start">
-          <div className="rounded-2xl border border-border bg-card p-5">
-            <div className="text-xs uppercase tracking-widest text-muted-foreground mb-3 flex items-center gap-2">
-              <PlayCircle className="h-3.5 w-3.5" /> Видео ({exercises.videos.length})
-            </div>
-            <ol className="space-y-2 text-sm">
-              {exercises.videos.map((v, i) => (
-                <li key={i}>
-                  <a href={v.url} target="_blank" rel="noopener noreferrer"
-                     className="group flex items-start gap-2 rounded-lg p-2 -mx-2 hover:bg-secondary transition">
-                    <PlayCircle className="h-4 w-4 text-primary shrink-0 mt-0.5" />
-                    <span className="text-foreground/80 group-hover:text-primary line-clamp-2">{v.label}</span>
-                  </a>
-                </li>
-              ))}
-            </ol>
+        <section aria-labelledby="exercise-videos">
+          <div className="mb-5 flex items-center gap-3">
+            <PlayCircle className="h-6 w-6 text-primary" />
+            <h2 id="exercise-videos" className="font-display text-3xl">Видео упражнений</h2>
           </div>
-        </aside>
+          <div className="grid gap-6 md:grid-cols-2">
+            {videosWithLinks.map((video) => (
+              <article key={`${video.label}-${video.url}`} className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+                <div className="aspect-video bg-muted">
+                  <iframe
+                    src={video.embedUrl}
+                    title={video.label}
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                    className="h-full w-full"
+                  />
+                </div>
+                <h3 className="p-4 text-base font-medium leading-snug">{video.label}</h3>
+              </article>
+            ))}
+          </div>
+        </section>
       </div>
     </div>
   );
+}
+
+function getYouTubeEmbedUrl(url: string) {
+  if (!url) return null;
+
+  try {
+    const parsedUrl = new URL(url);
+    const pathParts = parsedUrl.pathname.split("/").filter(Boolean);
+    const videoId = parsedUrl.searchParams.get("v") ??
+      (pathParts[0] === "shorts" || pathParts[0] === "embed" ? pathParts[1] : pathParts[0]);
+
+    return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
+  } catch {
+    return null;
+  }
 }
