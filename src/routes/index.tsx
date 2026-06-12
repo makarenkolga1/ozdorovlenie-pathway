@@ -73,7 +73,7 @@ function Index() {
           </Link>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {weeks.slice(0, 3).map((w) => (
+          {weeks.map((w) => (
             <Link
               key={w.id}
               to="/theory/$id"
